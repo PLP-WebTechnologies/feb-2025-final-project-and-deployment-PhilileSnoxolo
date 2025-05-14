@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Shop - Ecommerce Website</title>
+    <style>
+        /* Base Styles with Previous Color Scheme */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
+            --secondary-gradient: linear-gradient(90deg, #ff7eb3, #ff758c);
+            --button-gradient: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            --footer-gradient: linear-gradient(90deg, #a1c4fd, #c2e9fb);
+            --dark-bg: #1a1a2e;
+            --dark-section: #16213e;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f9f7fe;
+            transition: all 0.3s ease;
+        }
+        
+        header {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            background: var(--secondary-gradient);
+            padding: 1rem;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin: 0 1rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+        
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: #a777e3;
+            font-size: 1.1rem;
+        }
+        
+        button {
+            background: var(--button-gradient);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .cart {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        .cart-count {
+            background: #ff758c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+        
+        footer {
+            background: var(--footer-gradient);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        /* Dark Mode Styles */
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: #e6e6e6;
+        }
+        
+        .dark-mode .product-card {
+            background-color: var(--dark-section);
+            color: #e6e6e6;
+        }
+        
+        .dark-mode footer {
+            background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .products {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Colorful Shop</h1>
+        <p>Your one-stop shop for vibrant products!</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><button id="theme-toggle">Dark Mode</button></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section id="home">
+            <h2>Featured Products</h2>
+            <div class="products">
+                <div class="product-card fade-in">
+                    <div class="product-image" style="background-image: url('Colorful Tshirt.png')"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">Vibrant T-Shirt</h3>
+                        <p class="product-description">A colorful t-shirt that brightens your day!</p>
+                        <p class="product-price">R60.99</p>
+                        <button class="add-to-cart" data-id="1">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card fade-in">
+                    <div class="product-image" style="background-image: url('Gradient Hoodie.png')"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">Gradient Hoodie</h3>
+                        <p class="product-description">Warm and stylish with beautiful colors.</p>
+                        <p class="product-price">R120.00</p>
+                        <button class="add-to-cart" data-id="2">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card fade-in">
+                    <div class="product-image" style="background-image: url('Colorful Cap.png')"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">Colorful Cap</h3>
+                        <p class="product-description">Protect yourself from the sun in style.</p>
+                        <p class="product-price">R49.99</p>
+                        <button class="add-to-cart" data-id="3">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card fade-in">
+                    <div class="product-image" style="background-image: url('Pastel Backpack.png')"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">Pastel Backpack</h3>
+                        <p class="product-description">Carry your essentials with colorful flair.</p>
+                        <p class="product-price">R130.00</p>
+                        <button class="add-to-cart" data-id="4">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Colorful Shop. All rights reserved.</p>
+        <p>Contact us at: <a href="mailto:info@colorfulshop.com">info@colorfulshop.com</a></p>
+    </footer>
+    
+    <div class="cart" id="cart-button">
+        🛒 Cart <span class="cart-count" id="cart-count">0</span>
+    </div>
+    
+    <div id="cart-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto;">
+            <h2>Your Cart</h2>
+            <div id="cart-items"></div>
+            <p id="cart-total">Total: R0.00</p>
+            <button id="checkout-btn" style="margin-top: 1rem;">Proceed to Checkout</button>
+            <button id="close-cart" style="background: #ff758c; margin-top: 0.5rem;">Close</button>
+        </div>
+    </div>
+    
+    <script>
+        // DOM Elements
+        const themeToggle = document.getElementById('theme-toggle');
+        const cartButton = document.getElementById('cart-button');
+        const cartModal = document.getElementById('cart-modal');
+        const cartItems = document.getElementById('cart-items');
+        const cartCount = document.getElementById('cart-count');
+        const cartTotal = document.getElementById('cart-total');
+        const closeCart = document.getElementById('close-cart');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        
+        // Product data
+        const products = {
+            1: { name: "Vibrant T-Shirt", price: 60.99 },
+            2: { name: "Gradient Hoodie", price: 120.00 },
+            3: { name: "Colorful Cap", price: 49.99 },
+            4: { name: "Pastel Backpack", price: 130.00 }
+        };
+        
+        // Cart state
+        let cart = {};
+        
+        // Load cart from localStorage
+        function loadCart() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartUI();
+            }
+        }
+        
+        // Save cart to localStorage
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        
+        // Update cart UI
+        function updateCartUI() {
+            // Update cart count
+            let totalCount = 0;
+            for (const id in cart) {
+                totalCount += cart[id].quantity;
+            }
+            cartCount.textContent = totalCount;
+            
+            // Update cart modal
+            cartItems.innerHTML = '';
+            let totalPrice = 0;
+            
+            for (const id in cart) {
+                const item = cart[id];
+                const itemTotal = item.price * item.quantity;
+                totalPrice += itemTotal;
+                
+                const itemElement = document.createElement('div');
+                itemElement.style.display = 'flex';
+                itemElement.style.justifyContent = 'space-between';
+                itemElement.style.marginBottom = '0.5rem';
+                itemElement.style.paddingBottom = '0.5rem';
+                itemElement.style.borderBottom = '1px solid #eee';
+                
+                itemElement.innerHTML = `
+                    <div>
+                        <h3 style="margin: 0;">${item.name}</h3>
+                        <p style="margin: 0;">R${item.price.toFixed(2)} × ${item.quantity}</p>
+                    </div>
+                    <div>
+                        <p style="margin: 0; font-weight: bold;">R${itemTotal.toFixed(2)}</p>
+                        <button class="remove-item" data-id="${id}" style="background: #ff758c; padding: 0.2rem 0.5rem; font-size: 0.8rem;">Remove</button>
+                    </div>
+                `;
+                
+                cartItems.appendChild(itemElement);
+            }
+            
+            cartTotal.textContent = `Total: R${totalPrice.toFixed(2)}`;
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = e.target.getAttribute('data-id');
+                    removeFromCart(id);
+                });
+            });
+        }
+        
+        // Add to cart
+        function addToCart(id) {
+            if (cart[id]) {
+                cart[id].quantity += 1;
+            } else {
+                cart[id] = {
+                    name: products[id].name,
+                    price: products[id].price,
+                    quantity: 1
+                };
+            }
+            
+            saveCart();
+            updateCartUI();
+            
+            // Animation feedback
+            const button = document.querySelector(`.add-to-cart[data-id="${id}"]`);
+            button.textContent = 'Added!';
+            button.style.background = 'linear-gradient(90deg, #4CAF50, #8BC34A)';
+            
+            setTimeout(() => {
+                button.textContent = 'Add to Cart';
+                button.style.background = 'linear-gradient(90deg, #4facfe 0%, #00f2fe 100%)';
+            }, 1000);
+        }
+        
+        // Remove from cart
+        function removeFromCart(id) {
+            if (cart[id]) {
+                if (cart[id].quantity > 1) {
+                    cart[id].quantity -= 1;
+                } else {
+                    delete cart[id];
+                }
+                
+                saveCart();
+                updateCartUI();
+            }
+        }
+        
+        // Event Listeners
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            themeToggle.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
+            localStorage.setItem('darkMode', isDarkMode);
+        });
+        
+        cartButton.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+        
+        closeCart.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+        
+        checkoutBtn.addEventListener('click', () => {
+            alert('Thank you for your purchase!');
+            cart = {};
+            saveCart();
+            updateCartUI();
+            cartModal.style.display = 'none';
+        });
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const id = e.target.getAttribute('data-id');
+                addToCart(id);
+            });
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+        
+        // Initialize
+        function init() {
+            // Load saved theme
+            const savedTheme = localStorage.getItem('darkMode');
+            if (savedTheme === 'true') {
+                document.body.classList.add('dark-mode');
+                themeToggle.textContent = 'Light Mode';
+            }
+            
+            // Load cart
+            loadCart();
+        }
+        
+        init();
+    </script>
+</body>
+</html>
